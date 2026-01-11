@@ -13,5 +13,6 @@ flask==3.1.1
 ipykernel
 flask-cors
 google-genai
+sentence-transformers
 
 
