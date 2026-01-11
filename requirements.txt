@@ -1,0 +1,17 @@
+zenml
+pandas
+numpy 
+from_root
+pymongo
+dotenv
+langchain>=0.2
+langchain-core>=0.2
+langchain-community>=0.2
+langchain-google-genai>=1.0
+langchain-pinecone
+flask==3.1.1
+ipykernel
+flask-cors
+google-genai
+
+
