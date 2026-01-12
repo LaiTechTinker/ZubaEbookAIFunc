@@ -10,8 +10,8 @@ Port=os.getenv("PORT")
 #this creates our flask sever
 app=Flask(__name__)
 CORS(app)
-app.register_blueprint(upload_route,url_prefix="api/upload")
-# app.register_blueprint(chat_route,url_prefix="api/chat")
+app.register_blueprint(upload_route,url_prefix="/api/upload")
+app.register_blueprint(chat_route,url_prefix="/api/chat")
 
 @app.route("/", methods=["GET"])
 def home():
