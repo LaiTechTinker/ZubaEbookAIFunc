@@ -1,8 +1,15 @@
 #this section of my code will handle both uploaded request file processing and also uploading the embedding to vector store
 import os
+from dotenv import load_dotenv
 from Mainfold.utils import Embedd,UploadEMbedding,SplitDocument,exception
 from flask import jsonify,request
 import tempfile
+from Mainfold.utils.Mongo_connect import MongoDBOp
+DB_NAME=os.getenv("DATABASE_NAME")
+MONGO_URL=os.getenv("MONGO_URL")
+COLLECTION_NAME=os.getenv("COLLECTION_NAME")
+
+Mongo_class=MongoDBOp(MONGO_URL=MONGO_URL,DB_NAME=DB_NAME)
 
 def process_upload(file,user_id,book_id,book_title):
     text_content=[]
