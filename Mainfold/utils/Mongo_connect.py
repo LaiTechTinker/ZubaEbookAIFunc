@@ -1,7 +1,8 @@
 import os
 import sys
 from pymongo.mongo_client import MongoClient
-from Mainfold.utils.exception import ErrorException
+# from Mainfold.utils.exception import ErrorException
+from flask import jsonify
 # from ScheduleAI.logger import logging
 
 
@@ -13,7 +14,7 @@ class MongoDBOp:
          self.database=self.Client[DB_NAME]
          
         except Exception as e:
-           raise ErrorException(e,sys)
+           return jsonify({"status":"error","message":str(e)}),500
     
       
     def InsertMany(self,COLLECTION_NAME,Data):
@@ -28,14 +29,14 @@ class MongoDBOp:
         raise ValueError("data is not in dict format")
        return
      except Exception as e:
-        raise ErrorException(e,sys)
+        return jsonify({"status":"error","message":str(e)}),500
     def FetchALL(self,COLLECTION_NAME):
      try:
        
        returned_data=self.database[COLLECTION_NAME].find()
        return returned_data
      except Exception as e:
-       raise ErrorException(e,sys)
+       return jsonify({"status":"error","message":str(e)}),500
     def insertOne(self,COLLECTION_NAME,obj):
        try:
          
@@ -43,7 +44,7 @@ class MongoDBOp:
          collection.insert_one(obj)
          
        except Exception as e:
-         raise ErrorException(e,sys)
+         return jsonify({"status":"error","message":str(e)}),500
     def findOne(self,COLLECTION_NAME,id:object):
       try:
        
@@ -53,7 +54,7 @@ class MongoDBOp:
         return find_data
         
       except Exception as e:
-        raise ErrorException(e,sys)
+        return jsonify({"status":"error","message":str(e)}),500
     def deleteOne(self,COLLECTION_NAME,id:object):
       try:
        
@@ -61,7 +62,7 @@ class MongoDBOp:
         collection.find_one_and_delete(id)
         
       except Exception as e:
-        raise ErrorException(e,sys)
+        return jsonify({"status":"error","message":str(e)}),500
     
 
      

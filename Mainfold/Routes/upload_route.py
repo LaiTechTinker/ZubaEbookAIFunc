@@ -12,6 +12,6 @@ def process_file():
 
 @upload_route.route("/uploadtopine",methods=["POST"])
 def upload_pine():
-    data=request.json()
+    data=request.json
     return upload_to_pine(data=data)
 
