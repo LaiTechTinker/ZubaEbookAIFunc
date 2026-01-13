@@ -8,12 +8,12 @@ index_name=os.getenv("INDEX_NAME")
 
 def upload_embedding(splitted_doc):
     model=creating_model()
-    vectorstore = PineconeVectorStore.from_documents(
+    PineconeVectorStore.from_documents(
         documents=splitted_doc,
         embedding=model,
         index_name=index_name
     )
-    return None
+    return 
 def retrieval_func(user_id,book_id):
     model=creating_model()
     vectorstore = PineconeVectorStore(

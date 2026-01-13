@@ -44,13 +44,21 @@ class MongoDBOp:
          
        except Exception as e:
          raise ErrorException(e,sys)
-    def findOne(self,COLLECTION_NAME,id):
+    def findOne(self,COLLECTION_NAME,id:object):
       try:
        
         collection=self.database[COLLECTION_NAME]
         find_data=collection.find_one(id)
         
         return find_data
+        
+      except Exception as e:
+        raise ErrorException(e,sys)
+    def deleteOne(self,COLLECTION_NAME,id:object):
+      try:
+       
+        collection=self.database[COLLECTION_NAME]
+        collection.find_one_and_delete(id)
         
       except Exception as e:
         raise ErrorException(e,sys)
