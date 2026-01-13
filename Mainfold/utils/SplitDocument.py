@@ -2,6 +2,7 @@
 from langchain_community.document_loaders.pdf import PyPDFLoader
 from langchain_community.document_loaders import Docx2txtLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
+from langchain_core.documents import Document
 #this handles text splitting generally
 def text_splitter():
     text_splitter = RecursiveCharacterTextSplitter(
@@ -34,3 +35,23 @@ def split_docx(docx_file_path,user_id,book_id,book_title):
         "source": "docx"
      })
     return docx_split
+#this code block serialize lanchain processsed document
+def serialize(docs):
+   return [
+    {
+       "page_content":d.page_content,
+       "metadata":d.metadata
+    }
+    for d in docs
+   ]
+
+#this deserialize our fetch splitted document from mongodb so that we can push to pinecone
+
+def deserialize(data):
+   return[
+      Document(
+         page_content=d["page_content"],
+         metadata=d["metadata"]
+      )
+      for d in data
+   ]
