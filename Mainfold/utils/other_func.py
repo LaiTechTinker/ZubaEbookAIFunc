@@ -13,12 +13,17 @@ def initiate_LLM():
         "google_genai:gemini-2.5-flash-lite",
         google_api_key=GEMINI_API_KEY
     )
-def retrieval(model):
+def retrieval(model,user_id,book_id):
  vector_store= PineconeVectorStore.from_existing_index(
         index_name=INDEX_NAME,
         embedding=model
     )
  return vector_store.as_retriever(
         search_type="similarity",
-        search_kwargs={"k": 3}
+        search_kwargs={"k": 3,
+                       "filter":{
+                "user_id":user_id,
+                "book_id":book_id
+            }},
+        
     )

@@ -1,5 +1,6 @@
 #this code block creates embeddings for the splitted documents
 from langchain_community.embeddings import HuggingFaceEmbeddings
+
 def creating_model(model_name="sentence-transformers/all-MiniLM-L6-v2"):
     model=HuggingFaceEmbeddings(
     model_name=model_name,

@@ -10,22 +10,25 @@ from Mainfold.utils.other_func import *
 
 model=creating_model()
 LLM=initiate_LLM()
-retrieval=retrieval(model=model)
-prompt = ChatPromptTemplate.from_messages([
+
+def intiate_chat(data):
+ user_msg = data.get("message")
+ book_id=data.get("book_id")
+ user_id=data.get("user_id")
+ doc_retrieval=retrieval(model=model,user_id=user_id,book_id=book_id)
+ prompt = ChatPromptTemplate.from_messages([
         ("system", system_prompt),
         ("human", "{user_input}")
     ])
  # Build RAG chain
-rag_chain = (
+ rag_chain = (
         {
-            "context": retrieval | (lambda docs: "\n\n".join(d.page_content for d in docs)),
+            "context": doc_retrieval | (lambda docs: "\n\n".join(d.page_content for d in docs)),
             "user_input": RunnablePassthrough(),
         }
         | prompt
         | LLM
     )
-def intiate_chat(data):
- user_msg = data.get("message")
  if not user_msg:
         return jsonify({"reply": "No message received!"})
 
