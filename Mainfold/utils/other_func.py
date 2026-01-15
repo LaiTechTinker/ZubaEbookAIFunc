@@ -19,7 +19,7 @@ def stream_LLM(handler):
         "google_genai:gemini-2.5-flash-lite",
         google_api_key=GEMINI_API_KEY,
         temperature=0,
-        stream=True,
+        streaming=True,
         callbacks=[handler]
         
     )
