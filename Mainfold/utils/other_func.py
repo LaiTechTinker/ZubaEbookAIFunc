@@ -11,7 +11,17 @@ INDEX_NAME=os.getenv("INDEX_NAME")
 def initiate_LLM():
  return init_chat_model(
         "google_genai:gemini-2.5-flash-lite",
-        google_api_key=GEMINI_API_KEY
+        google_api_key=GEMINI_API_KEY,
+        
+    )
+def stream_LLM(handler):
+    return init_chat_model(
+        "google_genai:gemini-2.5-flash-lite",
+        google_api_key=GEMINI_API_KEY,
+        temperature=0,
+        stream=True,
+        callbacks=[handler]
+        
     )
 def retrieval(model,user_id,book_id):
  vector_store= PineconeVectorStore.from_existing_index(

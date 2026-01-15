@@ -2,10 +2,12 @@
 import os
 from dotenv import load_dotenv
 from flask import jsonify
+from collections import deque
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.runnables import RunnablePassthrough
 from Mainfold.utils.PromptTemp import system_prompt
 from Mainfold.utils.Embedd import creating_model
+
 from Mainfold.utils.other_func import *
 
 model=creating_model()
@@ -16,6 +18,7 @@ def intiate_chat(data):
  book_id=data.get("book_id")
  user_id=data.get("user_id")
  doc_retrieval=retrieval(model=model,user_id=user_id,book_id=book_id)
+ stream_retrival=retrieval(model=model,user_id=user_id,book_id=book_id)
  prompt = ChatPromptTemplate.from_messages([
         ("system", system_prompt),
         ("human", "{user_input}")
@@ -35,4 +38,4 @@ def intiate_chat(data):
     # Invoke RAG chain
  response = rag_chain.invoke(user_msg)
  return jsonify({"reply": response.content})
- 
+
